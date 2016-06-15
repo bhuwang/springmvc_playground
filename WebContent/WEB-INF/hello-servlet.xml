@@ -8,16 +8,14 @@
   http://www.springframework.org/schema/util 
   http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<!-- Simple URL handler mapping -->
-	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<props>
-				<prop key="/hello">hello</prop>
-			</props>
-		</property>
-	</bean>
+	<!-- Controller class name handler mapping -->
+	<bean
+		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
 
-	<bean name="hello" class="com.bhuwan.springmvc.HelloController" />
+	<!-- No need to map url with controller it will identify by the name. Since 
+		the url is hello and the controller name is HelloController it will be automatically 
+		mapped. -->
+	<bean class="com.bhuwan.springmvc.HelloController" />
 
 	<!-- View Resolver Configuration -->
 	<bean
