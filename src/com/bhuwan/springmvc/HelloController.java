@@ -26,7 +26,7 @@ public class HelloController implements Controller {
      */
     @Override
     public ModelAndView handleRequest(HttpServletRequest req, HttpServletResponse res) throws Exception {
-        System.out.println("Inside Hello Controller.....................");
+        System.out.println("Inside Hello Controller using simple url controller........");
         String name = req.getParameter("name");
         Map<String, String> map = new HashMap<String, String>();
         map.put("greetings", "Hello " + name + "!");

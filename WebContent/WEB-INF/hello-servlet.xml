@@ -8,8 +8,16 @@
   http://www.springframework.org/schema/util 
   http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<!-- Default handler mapping -->
-	<bean name="/hello" class="com.bhuwan.springmvc.HelloController" />
+	<!-- Simple URL handler mapping -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/hello">hello</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean name="hello" class="com.bhuwan.springmvc.HelloController" />
 
 	<!-- View Resolver Configuration -->
 	<bean
