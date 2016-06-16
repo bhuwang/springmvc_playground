@@ -15,7 +15,9 @@
 	<!-- No need to map url with controller it will identify by the name. Since 
 		the url is hello and the controller name is HelloController it will be automatically 
 		mapped. -->
-	<bean class="com.bhuwan.springmvc.HelloController" />
+	<bean class="com.bhuwan.springmvc.HelloController">
+		<property name="viewName" value="display"></property>
+	</bean>
 
 	<!-- View Resolver Configuration -->
 	<bean
