@@ -1,0 +1,48 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context 
+  http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/util 
+  http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="datasource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/springdemo" />
+		<property name="username" value="root" />
+		<property name="password" value="liferay" />
+	</bean>
+
+	<bean id="dao" class="com.bhuwan.springmvc.jdbcdemo.StudentDaoImpl">
+		<property name="datasource" ref="datasource"></property>
+	</bean>
+
+	<bean id="service" class="com.bhuwan.springmvc.jdbcdemo.StudentServiceImpl">
+		<property name="dao" ref="dao"></property>
+	</bean>
+
+	<bean id="studentController" class="com.bhuwan.springmvc.jdbcdemo.StudentController">
+		<property name="service" ref="service"></property>
+	</bean>
+
+	<!-- Using SimpleUrlHandlerMapping -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/create">studentController</prop>
+				<prop key="/edit">studentController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- View Resolver Configuration -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- if you change the views folder inside WEB-INF then you have to set 
+			the deployment assembly manually -->
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+</beans>
