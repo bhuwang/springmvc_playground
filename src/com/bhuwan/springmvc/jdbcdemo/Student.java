@@ -3,12 +3,19 @@
  */
 package com.bhuwan.springmvc.jdbcdemo;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author bhuwan
  *
  */
+@Entity
+@Table(name = "student")
 public class Student {
 
+    @Id
     private long id;
     private String name;
     private String email;

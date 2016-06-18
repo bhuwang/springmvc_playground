@@ -3,11 +3,9 @@
  */
 package com.bhuwan.springmvc.jdbcdemo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.List;
 
-import javax.sql.DataSource;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
  * @author bhuwan
@@ -15,35 +13,36 @@ import javax.sql.DataSource;
  */
 public class StudentDaoImpl implements StudentDao {
 
-    private DataSource datasrouce;
+    private HibernateTemplate template;
 
     @Override
     public int save(Student stu) throws Exception {
-        Connection con = datasrouce.getConnection();
-        String sql = "Insert into student(name,email,phone)values(?,?,?)";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, stu.getName());
-        ps.setString(2, stu.getEmail());
-        ps.setString(3, stu.getPhone());
-        return ps.executeUpdate();
+        int i = (Integer) template.save(stu);
+        return i;
     }
 
     @Override
     public boolean update(Student stu) throws Exception {
-        // TODO Auto-generated method stub
-        return false;
+        template.update(stu);
+        return true;
     }
 
     @Override
     public boolean delete(Student stu) throws Exception {
-        // TODO Auto-generated method stub
-        return false;
+        template.delete(stu);
+        return true;
     }
 
     @Override
-    public Student findByPk(Student stu) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+    public Student findByPk(long pk) throws Exception {
+        Student stu = (Student) template.get(Student.class, pk);
+        return stu;
+    }
+
+    @Override
+    public List<Student> findAll() throws Exception {
+        List<Student> list = template.find("from Student");
+        return list;
     }
 
     @Override
@@ -64,19 +63,8 @@ public class StudentDaoImpl implements StudentDao {
         return null;
     }
 
-    /**
-     * @return the datasource
-     */
-    public DataSource getDatasource() {
-        return datasrouce;
-    }
-
-    /**
-     * @param datasource
-     *            the datasource to set
-     */
-    public void setDatasource(DataSource ds) {
-        this.datasrouce = ds;
+    public void setTemplate(HibernateTemplate template) {
+        this.template = template;
     }
 
 }

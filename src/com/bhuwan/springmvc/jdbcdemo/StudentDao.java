@@ -17,11 +17,13 @@ public interface StudentDao {
 
     public boolean delete(Student stu) throws Exception;
 
-    public Student findByPk(Student stu) throws Exception;
-
     public List<Student> findByName(Student stu) throws Exception;
 
     public Student findByEmail(Student stu) throws Exception;
 
     public Student findByPhone(Student stu) throws Exception;
+
+    Student findByPk(long pk) throws Exception;
+
+    public List<Student> findAll() throws Exception;
 }

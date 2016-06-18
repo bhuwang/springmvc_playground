@@ -15,8 +15,31 @@
 		<property name="password" value="liferay" />
 	</bean>
 
+	<bean id="sf"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="datasource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+
+		<!-- List the annotated classes here -->
+		<property name="annotatedClasses">
+			<list>
+				<value>com.bhuwan.springmvc.jdbcdemo.Student</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="ht" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sf"></property>
+	</bean>
+
 	<bean id="dao" class="com.bhuwan.springmvc.jdbcdemo.StudentDaoImpl">
-		<property name="datasource" ref="datasource"></property>
+		<property name="template" ref="ht"></property>
 	</bean>
 
 	<bean id="service" class="com.bhuwan.springmvc.jdbcdemo.StudentServiceImpl">
